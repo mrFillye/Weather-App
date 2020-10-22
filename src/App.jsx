@@ -7,8 +7,8 @@ function App() {
   const [errors, setErrors] = useState(null);
 
   const getWeather = async () => {
-    var proxyUrl = "https://cors-anywhere.herokuapp.com/";
-    var url = "https://www.metaweather.com/api/location/2122265";
+    const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+    const url = "https://www.metaweather.com/api/location/2122265";
 
     await fetch(proxyUrl + url)
       .then((res) => res.json())
@@ -34,9 +34,9 @@ function App() {
     console.log(items[key]);
     const item = items[key];
     const stateName = `${item.weather_state_name}`;
-    var humidity = `${item.humidity}`;
-    var minTemp = Math.round(`${item.min_temp}`);
-    var maxTemp = Math.round(`${item.max_temp}`);
+    const humidity = `${item.humidity}`;
+    const minTemp = Math.round(`${item.min_temp}`);
+    const maxTemp = Math.round(`${item.max_temp}`);
   }
 
   if (errors) {
