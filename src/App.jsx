@@ -3,7 +3,7 @@ import "./App.css";
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState({});
+  const [items, setItems] = useState([]);
   const [errors, setErrors] = useState(null);
 
   const getWeather = async () => {
@@ -32,8 +32,8 @@ function App() {
   let key;
   for (key in items) {
     console.log(items[key]);
-    var item = items[key];
-    var stateName = `${item.weather_state_name}`;
+    const item = items[key];
+    const stateName = `${item.weather_state_name}`;
     var humidity = `${item.humidity}`;
     var minTemp = Math.round(`${item.min_temp}`);
     var maxTemp = Math.round(`${item.max_temp}`);
