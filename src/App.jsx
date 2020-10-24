@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import Weather from "./components/Weather/Weather";
+
+function getCorsUrl(url) {
+  const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+  return proxyUrl + url;
+}
+
+const url = "https://www.metaweather.com/api/location/2122265";
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
   const [errors, setErrors] = useState(null);
 
-  const getWeather = async () => {
-    const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-    const url = "https://www.metaweather.com/api/location/2122265";
-
-    await fetch(proxyUrl + url)
+  useEffect(() => {
+    fetch(getCorsUrl(url))
       .then((res) => res.json())
       .then(
         (result) => {
@@ -23,21 +28,7 @@ function App() {
           setErrors(errors);
         }
       );
-  };
-
-  useEffect(() => {
-    getWeather();
   }, []);
-
-  let key;
-  for (key in items) {
-    console.log(items[key]);
-    const item = items[key];
-    const stateName = `${item.weather_state_name}`;
-    const humidity = `${item.humidity}`;
-    const minTemp = Math.round(`${item.min_temp}`);
-    const maxTemp = Math.round(`${item.max_temp}`);
-  }
 
   if (errors) {
     return <h1>error</h1>;
@@ -46,14 +37,13 @@ function App() {
   } else {
     return (
       <div>
-        <h1>{stateName}</h1>
-        <h1>{humidity}</h1>
         <h3>
-          {minTemp} - {maxTemp}
+          {items.map((item) => (
+            <Weather key={item.id} item={item} />
+          ))}
         </h3>
       </div>
     );
   }
 }
-
 export default App;
